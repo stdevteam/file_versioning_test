@@ -170,9 +170,10 @@ def document():
             name = request.form['name']
             document_type = request.form['document_type']
             text = request.form['text']
+            external_file = request.form.get('external_file', '')
             created = datetime.now()
             if account['is_admin']:
-                cursor.execute('INSERT INTO documents VALUES (NULL, %s, %s, %s)', (name, created, document_type))
+                cursor.execute('INSERT INTO documents VALUES (NULL, %s, %s, %s, %s)', (name, created, external_file, document_type))
                 document_id = cursor.lastrowid
                 mysql.connection.commit()
 
