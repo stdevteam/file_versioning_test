@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+{% block content %}
+<h2>Create Customr</h2>
+<div>
+  <form action="{{ url_for('customer') }}" method="post" autocomplete="off">
+    <label for="username">
+      <i class="fas fa-user"></i>
+    </label>
+    <input type="hidden" name="id" placeholder="Id" id="id" value="{{ account['id'] }}">
+    <input type="text" name="username" placeholder="Username" id="username" value="{{ account['username'] }}" required>
+    <label for="password">
+      <i class="fas fa-lock"></i>
+    </label>
+    <input type="password" name="password" placeholder="Password" id="password" value="{{ account['password'] }}" required>
+    <label for="email">
+      <i class="fas fa-envelope"></i>
+    </label>
+    <input type="email" name="email" placeholder="Email" id="email" value="{{ account['email'] }}" required>
+    <div class="msg">{{ msg }}</div>
+    <input type="submit" value="Edit">
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+{% block content %}
+<h2>Create Customr</h2>
+<div>
+  <form action="{{ url_for('document') }}" method="post" autocomplete="off">
+    <label for="name">
+      Document Name
+    </label>
+    <input type="text" name="name" placeholder="Name" id="name" required>
+    <label for="document_type">
+      Document Type
+    </label>
+    <select name="document_type" id="document_type">
+      <option value="none" selected>none</option>
+      <option value="circulated">circulated</option>
+      <option value="emailed">emailed</option>
+    </select>
+    <div class="msg">{{ msg }}</div>
+    <input type="submit" value="Create">
+  </form>
+</div>
+{% endblock %}

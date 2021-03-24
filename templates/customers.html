@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h2>Customers</h2>
+<div>
+  <div style="text-align: right; margin-bottom: 15px;">
+    <form action="{{ url_for('customer') }}" method="POST">
+      <input type="submit" value="Create Customer" />
+    </form>
+  </div>
+  <p>Your customers list:</p>
+  <table style="width: 100%;">
+    <thead>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </thead>
+    {% for account in accounts %}
+      <tr>
+        <td>{{ account['username'] }}</td>
+        <td>{{ account['password'] }}</td>
+        <td>{{ account['email'] }}</td>
+        <td>
+          <form action="{{ url_for('customer') }}" method="EDIT">
+            <input type="hidden" name="_method" value="EDIT" />
+            <input type="hidden" name="id" value="{{ account['id'] }}" />
+            <input type="submit" value="Edit" />
+          </form>
+        </td>
+        <td>
+          <form action="{{ url_for('customer') }}" method="DELETE">
+            <input type="hidden" name="_method" value="DELETE" />
+            <input type="hidden" name="id" value="{{ account['id'] }}" />
+            <input type="submit" value="Delete" />
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `username` varchar(50) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `email` varchar(100) NOT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+ALTER TABLE users ADD COLUMN is_admin TinyInt(1) DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS `documents` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL,
+    `created` DATETIME NOT NULL,
+    `document_type` ENUM('none', 'circulated', 'emailed'),
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `drafts` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL,
+    `created` DATETIME NOT NULL,
+    `user_id` int NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `document_draft` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `document_id` int NOT NULL,
+    `draft_id` int NOT NULL,
+    `user_id` int NOT NULL,
+    `created` DATETIME NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (document_id) REFERENCES documents(id),
+    FOREIGN KEY (draft_id) REFERENCES drafts(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `customer_document` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `document_id` int NOT NULL,
+    `user_id` int NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (document_id) REFERENCES documents(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
